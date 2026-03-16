@@ -1,0 +1,202 @@
+<div style="text-align:center;margin-top:10px;">
+
+<img src="cm_public_school_logo.png" width="140">
+
+<h1>CM Public School</h1>
+<h2>Divine vs Demon Characteristics Game</h2>
+
+<div style="font-size:18px;color:#0b4ea2;">
+Game Visits: <span id="counter">0</span>
+</div>
+
+</div><!DOCTYPE html>
+<html>
+<head>
+<title>CM Public School - Divine vs Demon Game</title>
+
+<style>
+
+body{
+font-family: Arial;
+text-align:center;
+background:linear-gradient(#c8ecff,#ffffff);
+}
+
+h1{
+color:#0b4ea2;
+}
+
+#timer{
+font-size:24px;
+font-weight:bold;
+color:red;
+margin:10px;
+}
+
+.game-area{
+display:flex;
+justify-content:center;
+gap:40px;
+margin-top:20px;
+}
+
+.column{
+width:320px;
+min-height:320px;
+border:3px dashed #666;
+border-radius:12px;
+padding:10px;
+}
+
+#divine{background:#d6ffd6;}
+#demon{background:#ffd6d6;}
+
+.item{
+background:#ffe28a;
+margin:6px;
+padding:8px;
+border-radius:8px;
+cursor:grab;
+font-weight:bold;
+}
+
+.word-bank{margin-top:20px;}
+
+button{
+margin-top:20px;
+padding:10px 20px;
+font-size:18px;
+background:#0b4ea2;
+color:white;
+border:none;
+border-radius:8px;
+cursor:pointer;
+}
+
+#score{
+font-size:22px;
+margin-top:15px;
+color:#d40000;
+font-weight:bold;
+}
+
+</style>
+</head>
+
+<body>
+
+<h1>CM Public School</h1>
+<h2>Divine vs Demon Characteristics Game</h2>
+
+<div id="timer">Time Left: 60</div>
+
+<div class="word-bank">
+
+<div class="item" draggable="true">Truthfulness</div>
+<div class="item" draggable="true">Anger</div>
+<div class="item" draggable="true">Kindness</div>
+<div class="item" draggable="true">Greed</div>
+<div class="item" draggable="true">Helping Others</div>
+<div class="item" draggable="true">Jealousy</div>
+<div class="item" draggable="true">Compassion</div>
+<div class="item" draggable="true">Violence</div>
+<div class="item" draggable="true">Respect</div>
+<div class="item" draggable="true">Lying</div>
+<div class="item" draggable="true">Forgiveness</div>
+<div class="item" draggable="true">Pride</div>
+<div class="item" draggable="true">Self Control</div>
+<div class="item" draggable="true">Cruelty</div>
+<div class="item" draggable="true">Sharing</div>
+<div class="item" draggable="true">Hatred</div>
+<div class="item" draggable="true">Patience</div>
+<div class="item" draggable="true">Dishonesty</div>
+<div class="item" draggable="true">Humility</div>
+<div class="item" draggable="true">Selfishness</div>
+
+</div>
+
+<div class="game-area">
+
+<div class="column" id="divine">
+<h3>Divine Qualities</h3>
+</div>
+
+<div class="column" id="demon">
+<h3>Demon Qualities</h3>
+</div>
+
+</div>
+
+<button onclick="checkScore()">Check Score</button>
+
+<div id="score"></div>
+
+<script>
+
+let dragged
+
+document.querySelectorAll(".item").forEach(item=>{
+item.addEventListener("dragstart",function(){
+dragged=this
+})
+})
+
+document.querySelectorAll(".column").forEach(col=>{
+col.addEventListener("dragover",e=>e.preventDefault())
+
+col.addEventListener("drop",function(){
+this.appendChild(dragged)
+})
+})
+
+function checkScore(){
+
+let divineCorrect=[
+"Truthfulness","Kindness","Helping Others","Compassion",
+"Respect","Forgiveness","Self Control","Sharing",
+"Patience","Humility"
+]
+
+let demonCorrect=[
+"Anger","Greed","Jealousy","Violence","Lying",
+"Pride","Cruelty","Hatred","Dishonesty","Selfishness"
+]
+
+let score=0
+
+document.querySelectorAll("#divine .item").forEach(item=>{
+if(divineCorrect.includes(item.innerText)) score++
+})
+
+document.querySelectorAll("#demon .item").forEach(item=>{
+if(demonCorrect.includes(item.innerText)) score++
+})
+
+document.getElementById("score").innerHTML="Your Score: "+score+" / 20"
+
+}
+
+let time=60
+
+let timer=setInterval(function(){
+
+time--
+
+document.getElementById("timer").innerHTML="Time Left: "+time
+
+if(time<=0){
+
+clearInterval(timer)
+
+checkScore()
+
+alert("Time Up! Game Finished")
+
+}
+
+},1000)
+
+</script>
+
+</body>
+</html>
